@@ -15,7 +15,9 @@ export default function IngredientsList(props){
                 </div>
 
 
-                <button onClick = {props.getRecipe}>Get a recipe</button>
+                    <button onClick={props.getRecipe} disabled={props.isLoading}>
+                        {props.isLoading ? "Generating..." : "Get a recipe"}
+                    </button>
                 </div>}
     
                 </section>

@@ -22,6 +22,15 @@ export default function Main({ token, onLogout }){
         setRecipe(recipeMarkdown)   
     }
 
+    const [isLoading, setIsLoading] = React.useState(false)
+
+    async function getRecipe(){
+        setIsLoading(true)
+        const recipeMarkdown = await getRecipeFromMistral(ingredients)
+        setRecipe(recipeMarkdown)
+        setIsLoading(false)
+    }
+
     async function handleSaveFavorite(){
         const result = await saveFavorite(recipe, token)
         if (result.success) {
@@ -62,7 +71,8 @@ export default function Main({ token, onLogout }){
         {ingredients.length > 0 && 
             <IngredientsList
                      ingredients = {ingredients} 
-                     getRecipe={getRecipe} 
+                     getRecipe={getRecipe}
+                     isLoading = {isLoading} 
                      />}
 
         {recipe && (
